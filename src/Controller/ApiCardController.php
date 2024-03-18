@@ -29,6 +29,32 @@ class ApiCardController extends AbstractController
         return $this->json($cards);
     }
 
+    #[Route('/search/{name}', name: 'Search card', methods: ['GET'])]
+    #[OA\Parameter(name: 'name', description: 'Name of the card', in: 'path', required: true, schema: new OA\Schema(type: 'string'))]
+    #[OA\Put(description: 'Search a card by name')]
+    #[OA\Response(response: 200, description: 'Show card')]
+    #[OA\Response(response: 404, description: 'Card not found')]
+    public function cardSearch(string $name): Response
+    {
+        $this->logger->info('Search card ' . $name);
+        $cards = $this->entityManager->getRepository(Card::class)->searchByName($name);
+        if (!$cards) {
+            return $this->json(['error' => 'Card not found'], 404);
+        }
+        return $this->json($cards);
+    }
+
+    #[Route('/setCode', name: 'List all setCode', methods: ['GET'])]
+    #[OA\Put(description: 'Return all setCode in the database')]
+    #[OA\Response(response: 200, description: 'List all setCode')]
+    #[OA\Response(response: 404, description: 'setCode not found')]
+    public function cardSetCode(): Response
+    {
+        $this->logger->info('List all setCode');
+        $setCodes = $this->entityManager->getRepository(Card::class)->getAllSetCode();
+        return $this->json($setCodes);
+    }
+
     #[Route('/{uuid}', name: 'Show card', methods: ['GET'])]
     #[OA\Parameter(name: 'uuid', description: 'UUID of the card', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))]
     #[OA\Put(description: 'Get a card by UUID')]
