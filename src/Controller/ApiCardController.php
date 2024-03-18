@@ -25,6 +25,7 @@ class ApiCardController extends AbstractController
     #[OA\Response(response: 200, description: 'List all cards')]
     public function cardAll(): Response
     {
+        $this->logger->info('List all cards');
         $cards = $this->entityManager->getRepository(Card::class)->findAll();
         return $this->json($cards);
     }
@@ -36,6 +37,7 @@ class ApiCardController extends AbstractController
     #[OA\Response(response: 404, description: 'Card not found')]
     public function cardShow(string $uuid): Response
     {
+        $this->logger->info('Show card ' . $uuid);
         $card = $this->entityManager->getRepository(Card::class)->findOneBy(['uuid' => $uuid]);
         if (!$card) {
             return $this->json(['error' => 'Card not found'], 404);
