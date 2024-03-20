@@ -53,19 +53,21 @@ export default {
     <div>
         <h1>Rechercher une Carte</h1>
     </div>
-    <div>
-        Filtrer par :
-        <select v-model="setCode">
-            <option value="" selected disabled hidden>Choisir un setCode</option>
-            <option @click="filterCards" v-for="setCode in setCodes" :key="setCode" :value="setCode">
-                {{ setCode }}
-            </option>
-        </select>
-        <button v-if="setCode" @click="clearCodes">Supprimer le filtre</button>
-    </div>
-    <div>
-        <input type="text" v-model="search" @input="searchCards" />
-        <button type="reset" @click="clearSearch">Vider</button>
+    <div class="flex-row">
+        <div>
+            Filtrer par :
+            <select v-model="setCode">
+                <option value="" selected disabled hidden>Choisir un setCode</option>
+                <option @click="filterCards" v-for="setCode in setCodes" :key="setCode" :value="setCode">
+                    {{ setCode }}
+                </option>
+            </select>
+            <button v-if="setCode" @click="clearCodes">Supprimer le filtre</button>
+        </div>
+        <div>
+            <input type="text" v-model="search" @input="searchCards" />
+            <button type="reset" @click="clearSearch">Vider</button>
+        </div>
     </div>
     <div class="card-list">
         <div v-if="loadingCards">Loading...</div>
@@ -79,3 +81,65 @@ export default {
         </div>
     </div>
 </template>
+
+<style scoped>
+h1 {
+  color: #333;
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+select, input[type="text"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin: 5px;
+}
+
+button {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 80%;
+  box-sizing: border-box;
+}
+
+.card:hover {
+  background-color: #e9e9e9;
+}
+
+.loading {
+  font-size: 1.5em;
+  text-align: center;
+  color: #999;
+}
+</style>
