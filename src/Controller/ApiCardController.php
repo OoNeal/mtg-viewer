@@ -16,9 +16,8 @@ class ApiCardController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly LoggerInterface        $logger
-    )
-    {
+        private readonly LoggerInterface $logger
+    ) {
     }
 
     #[Route('/all', name: 'List all cards', methods: ['GET'])]

@@ -61,7 +61,7 @@ class CardRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->where('c.name LIKE :name')
-            ->setParameter('name',  $name . '%')
+            ->setParameter('name', $name . '%')
             ->getQuery()
             ->getResult();
     }

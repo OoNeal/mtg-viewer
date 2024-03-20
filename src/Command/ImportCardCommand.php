@@ -24,7 +24,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ImportCardCommand extends Command
 {
     public function __construct(
-
         private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
         private array $csvHeader = []
@@ -114,6 +113,5 @@ class ImportCardCommand extends Command
         $card->setText($row['text']);
         $card->setType($row['type']);
         $this->entityManager->persist($card);
-
     }
 }
