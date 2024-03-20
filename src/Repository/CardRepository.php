@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Card;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -25,11 +24,10 @@ class CardRepository extends ServiceEntityRepository
 
     public function getAllUuids(): array
     {
-        $result =  $this->createQueryBuilder('c')
+        $result = $this->createQueryBuilder('c')
             ->select('c.uuid')
             ->getQuery()
-            ->getResult(AbstractQuery::HYDRATE_ARRAY)
-        ;
+            ->getResult(AbstractQuery::HYDRATE_ARRAY);
         return array_column($result, 'uuid');
     }
 
@@ -40,5 +38,15 @@ class CardRepository extends ServiceEntityRepository
             ->setParameter('name',  $name . '%')
             ->getQuery()
             ->getResult();
+    }
+
+    public function getAllSetCode(): array
+    {
+        $result = $this->createQueryBuilder('c')
+            ->select('c.setCode')
+            ->distinct()
+            ->getQuery()
+            ->getResult(AbstractQuery::HYDRATE_ARRAY);
+        return array_column($result, 'setCode');
     }
 }
