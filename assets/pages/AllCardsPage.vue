@@ -31,7 +31,6 @@ export default {
         },
         clearCodes() {
             this.setCode = '';
-            this.displayCards = this.cards;
             this.page = 1;
         },
         switchPage(number) {
@@ -56,6 +55,10 @@ export default {
         page() {
             this.loadCards();
         },
+        setCode() {
+            this.page = 1;
+            this.loadCards();
+        },
     },
 };
 </script>
@@ -69,7 +72,7 @@ export default {
             Filtrer par :
             <select v-model="setCode">
                 <option value="" selected disabled hidden>Choisir un setCode</option>
-                <option @click="loadCards; page = 1" v-for="setCode in setCodes" :key="setCode" :value="setCode">
+                <option v-for="setCode in setCodes" :key="setCode" :value="setCode">
                     {{ setCode }}
                 </option>
             </select>
